@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 01:08:12 by vegret            #+#    #+#             */
-/*   Updated: 2022/09/15 01:08:12 by vegret           ###   ########.fr       */
+/*   Created: 2022/10/06 20:30:40 by vegret            #+#    #+#             */
+/*   Updated: 2022/10/06 20:30:40 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-unsigned int	ft_putchar(char c);
-unsigned int	ft_putstr(char *str);
-unsigned int	ft_putptr(void *ptr);
-unsigned int	ft_putnbr(int n);
-
-#endif
+// TODO Check
+unsigned int	ft_putnbr(int n)
+{
+	if (n == -2147483648)
+		return (ft_putstr("-2147483648"));
+	if (n < 0)
+		return (ft_putchar('-') + ft_putnbr(-n));
+	if (n < 10)
+		return (ft_putchar(n + '0'));
+	return (ft_putnbr(n / 10) + ft_putnbr(n % 10));
+}
