@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 
 // TODO Check
-unsigned int	ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
 	if (n == -2147483648)
 		return (ft_putstr("-2147483648"));

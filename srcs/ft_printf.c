@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-unsigned int	handle_conv(char c, va_list args)
+int	handle_conv(char c, va_list args)
 {
 	if (c == 'c')
 		return (ft_putchar(va_arg(args, char)));
@@ -30,9 +30,9 @@ unsigned int	handle_conv(char c, va_list args)
 
 int	ft_printf(const char *format, ...)
 {
-	int				i;
-	unsigned int	count;
-	va_list			args;
+	int		i;
+	int		count;
+	va_list	args;
 
 	i = 0;
 	count = 0;
@@ -50,10 +50,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (count);
-}
-
-int	main(void)
-{
-	printf("%d\n", 0x2A);
-	return (0);
 }

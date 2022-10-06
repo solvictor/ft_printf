@@ -12,14 +12,14 @@
 
 #include <unistd.h>
 
-unsigned int	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	return (write(1, &c, 1));
 }
 
-unsigned int	ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (str[i])
