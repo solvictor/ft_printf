@@ -12,19 +12,23 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <ft_printf.h>
 
-void	handle_conv(char c, va_list args)
+unsigned int	(*funcs[2])();
+
+unsigned int	handle_conv(char c, va_list args)
 {
-	//if (c == 'c')
-	//	ft_putchar(va_arg(args, char));
-	//else if (c == 'd' || c == 'i')
-	//	ft_putnbr(va_arg(args, int));
-	//else if (c == '%')
-	//	ft_putchar('%');
-	//else if (c == 's')
-	//	ft_putstr(va_arg(args, char *));
-	//else if (c == 't')
-	//	ft_putnbr(va_arg(args, int));
+	int	i;
+
+	i = 0;
+	while (CONVS[i])
+	{
+		if (CONVS[i] == c)
+			return (funcs[i](va_arg(args, double)));
+		i++;
+	}
+	// ERROR
+	return (-1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -44,17 +48,15 @@ int	ft_printf(const char *format, ...)
 			i++;
 		}
 		else
-			//count += ft_putchar(format[i]);
+			count += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(args);
 	return (count);
 }
 
-#include <stdio.h>
-
-int main(int argc, char const *argv[])
+int	main(void)
 {
 	printf("%d\n", 0x2A);
-	return 0;
+	return (0);
 }
