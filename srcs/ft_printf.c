@@ -19,7 +19,7 @@ int	handle_conv(char c, va_list args)
 	if (c == 'c')
 		return (ft_putchar(va_arg(args, char)));
 	if (c == 's')
-		return (ft_putchar(va_arg(args, char *)));
+		return (ft_putstr(va_arg(args, char *)));
 	if (c == 'p')
 		return (ft_putptr(va_arg(args, void *)));
 	if (c == 'd' || c == 'i')

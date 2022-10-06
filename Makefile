@@ -3,7 +3,7 @@ SRCDIR = srcs/
 INCLUDESDIR = includes/
 CC = gcc
 AR = ar rc
-SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c
+SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c $(SRCDIR)ft_putptr.c
 SRCS_B = $(SRCDIR)ft_lstnew.c
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
