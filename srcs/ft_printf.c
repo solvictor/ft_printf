@@ -14,23 +14,21 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-int	handle_conv(char c, va_list args)
+int	handle_conv(const char *c, va_list args)
 {
-	if (c == 'c')
+	if (*c == 'c')
 		return (ft_putchar(va_arg(args, int)));
-	if (c == 's')
+	if (*c == 's')
 		return (ft_putstr(va_arg(args, char *)));
-	if (c == 'p')
+	if (*c == 'p')
 		return (ft_putptr(va_arg(args, void *)));
-	if (c == 'd' || c == 'i')
+	if (*c == 'd' || *c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
-	if (c == 'u')
+	if (*c == 'u')
 		return (ft_putui(va_arg(args, unsigned int)));
-	if (c == 'x')
-		return (ft_putul_hex(va_arg(args, unsigned int)));
-	if (c == 'X')
-		return (ft_putul_hex_upper(va_arg(args, unsigned int)));
-	if (c == '%')
+	if (*c == 'x' || *c == 'X')
+		return (ft_putul_hex(va_arg(args, unsigned int), *c == 'X'));
+	if (*c == '%')
 		return (ft_putchar('%'));
 	// ERROR
 	return (-1);
@@ -49,8 +47,8 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
 		{
-			count += handle_conv(format[i + 1], args);
 			i++;
+			count += handle_conv(format + i, args);
 		}
 		else
 			count += ft_putchar(format[i]);

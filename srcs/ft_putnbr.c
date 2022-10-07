@@ -14,18 +14,15 @@
 #define HEXVALS "0123456789abcdef"
 #define UPPERHEXVALS "0123456789ABCDEF"
 
-int	ft_putul_hex(unsigned long n)
+int	ft_putul_hex(unsigned long n, int upper)
 {
 	if (n < 16)
+	{
+		if (upper)
+			return (ft_putchar(UPPERHEXVALS[n]));
 		return (ft_putchar(HEXVALS[n]));
-	return (ft_putul_hex(n / 16) + ft_putul_hex(n % 16));
-}
-
-int	ft_putul_hex_upper(unsigned long n)
-{
-	if (n < 16)
-		return (ft_putchar(UPPERHEXVALS[n]));
-	return (ft_putul_hex_upper(n / 16) + ft_putul_hex_upper(n % 16));
+	}
+	return (ft_putul_hex(n / 16, upper) + ft_putul_hex(n % 16, upper));
 }
 
 int	ft_putnbr(int n)

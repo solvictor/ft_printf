@@ -19,7 +19,6 @@ int	ft_putstr(char *str);
 int	ft_putptr(void *ptr);
 int	ft_putnbr(int n);
 int	ft_putui(unsigned int n);
-int	ft_putul_hex(unsigned long n);
-int	ft_putul_hex_upper(unsigned long n);
+int	ft_putul_hex(unsigned long n, int upper);
 
 #endif
