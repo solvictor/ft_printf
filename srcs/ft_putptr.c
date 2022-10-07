@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 
 int	ft_putptr(void *ptr)
 {
 	if (!ptr)
-		return (write(1, "(nil)", 4));
-	return (ft_putnbr((int) ptr));
+		return (write(1, "(nil)", 5));
+	return (write(1, "0x", 2) + ft_putul_hex((unsigned long) ptr));
 }

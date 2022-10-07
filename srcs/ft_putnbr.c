@@ -11,8 +11,23 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define HEXVALS "0123456789abcdef"
+#define UPPERHEXVALS "0123456789ABCDEF"
 
-// TODO Check
+int	ft_putul_hex(unsigned long n)
+{
+	if (n < 16)
+		return (ft_putchar(HEXVALS[n]));
+	return (ft_putul_hex(n / 16) + ft_putul_hex(n % 16));
+}
+
+int	ft_putul_hex_upper(unsigned long n)
+{
+	if (n < 16)
+		return (ft_putchar(UPPERHEXVALS[n]));
+	return (ft_putul_hex_upper(n / 16) + ft_putul_hex_upper(n % 16));
+}
+
 int	ft_putnbr(int n)
 {
 	if (n == -2147483648)
@@ -22,4 +37,11 @@ int	ft_putnbr(int n)
 	if (n < 10)
 		return (ft_putchar(n + '0'));
 	return (ft_putnbr(n / 10) + ft_putnbr(n % 10));
+}
+
+int	ft_putui(unsigned int n)
+{
+	if (n < 10)
+		return (ft_putchar(n + '0'));
+	return (ft_putui(n / 10) + ft_putui(n % 10));
 }

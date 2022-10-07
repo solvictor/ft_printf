@@ -17,13 +17,21 @@
 int	handle_conv(char c, va_list args)
 {
 	if (c == 'c')
-		return (ft_putchar(va_arg(args, char)));
+		return (ft_putchar(va_arg(args, int)));
 	if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	if (c == 'p')
 		return (ft_putptr(va_arg(args, void *)));
 	if (c == 'd' || c == 'i')
 		return (ft_putnbr(va_arg(args, int)));
+	if (c == 'u')
+		return (ft_putui(va_arg(args, unsigned int)));
+	if (c == 'x')
+		return (ft_putul_hex(va_arg(args, unsigned int)));
+	if (c == 'X')
+		return (ft_putul_hex_upper(va_arg(args, unsigned int)));
+	if (c == '%')
+		return (ft_putchar('%'));
 	// ERROR
 	return (-1);
 }
