@@ -17,5 +17,5 @@ int	ft_putptr(void *ptr)
 {
 	if (!ptr)
 		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_putul_hex((unsigned long) ptr));
+	return (write(1, "0x", 2) + ft_putul_hex((unsigned long) ptr, 0));
 }

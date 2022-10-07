@@ -4,7 +4,7 @@ INCLUDESDIR = includes/
 CC = gcc
 AR = ar rc
 SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c $(SRCDIR)ft_putptr.c
-SRCS_B = $(SRCDIR)ft_lstnew.c
+SRCS_B = 
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
 
@@ -17,8 +17,8 @@ $(NAME): 	$(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-bonus: $(OBJS) $(OBJS_B)
-	$(AR) $(NAME) $(OBJS) $(OBJS_B)
+bonus: $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 	ranlib $(NAME)
 
 clean: 
