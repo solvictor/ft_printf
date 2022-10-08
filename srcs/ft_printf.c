@@ -15,12 +15,6 @@
 #include <stdlib.h>
 #include "ft_printf.h"
 
-typedef struct	s_flag
-{
-	const char	*type;
-	int			value;
-}				t_flag;
-
 int	ft_atoi(const char *s, int *i)
 {
 	int	r;
