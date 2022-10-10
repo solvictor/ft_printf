@@ -27,7 +27,6 @@ static int	intlen(int n)
 	return (len);
 }
 
-// TODO Fix flag 0 && min int
 static int	putint_aux(int n, t_flag *flag)
 {
 	if (flag && flag->type == '0' && flag->value)
@@ -36,7 +35,7 @@ static int	putint_aux(int n, t_flag *flag)
 		return (ft_putchar('0') + putint_aux(n, flag));
 	}
 	if (n == -2147483648)
-		return (ft_putstr("-2147483648"));
+		return (ft_putstr("2147483648"));
 	if (n < 0)
 		return (ft_putchar('-') + putint_aux(-n, flag));
 	if (n < 10)
@@ -52,7 +51,7 @@ int	putint(int n, t_flag *flag)
 		if (flag->value < 0)
 			flag->value = 0;
 	}
-	if (n < 0 && n != -2147483648)
+	if (n < 0)
 		return (ft_putchar('-') + putint_aux(-n, flag));
 	return (putint_aux(n, flag));
 }
