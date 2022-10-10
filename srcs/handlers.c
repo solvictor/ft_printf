@@ -25,41 +25,37 @@ static int	ft_atoi(const char *s, int *i)
 	return (r);
 }
 
-static int	handle_flags(const char *s, t_flag **flag)
+static int	handle_flags(const char **s, t_flag **flag)
 {
 	int	i;
 
 	*flag = NULL;
-	if (*s != '-' && *s != '0')
+	if (**s != '-' && **s != '0')
 		return (0);
 	i = 0;
 	*flag = malloc(sizeof(t_flag));
-	(*flag)->type = *s;
-	(*flag)->value = ft_atoi(s + 1, &i);
+	(*flag)->type = **s;
+	(*flag)->value = ft_atoi(*s + 1, &i);
+	*s += i + 1;
 	return (i + 1);
 }
 
 int	handle_conv(const char *s, int *i, va_list args, t_flag **flag)
 {
-	int tmp;
-
-	tmp = handle_flags(s, flag);
-	s += tmp;
-	*i += tmp;
+	*i += handle_flags(&s, flag);
 	if (*s == 'c')
 		return (ft_putchar(va_arg(args, int)));
 	if (*s == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	if (*s == 'p')
-		return (ft_putptr(va_arg(args, void *)));
+		return (putptr(va_arg(args, void *)));
 	if (*s == 'd' || *s == 'i')
-		return (ft_putnbr(va_arg(args, int), *flag));
+		return (putint(va_arg(args, int), *flag));
 	if (*s == 'u')
-		return (ft_putui(va_arg(args, unsigned int), *flag));
+		return (putui(va_arg(args, unsigned int), *flag));
 	if (*s == 'x' || *s == 'X')
-		return (ft_putul_hex(va_arg(args, unsigned int), *s == 'X', *flag));
+		return (putul_hex(va_arg(args, unsigned int), *s == 'X', *flag));
 	if (*s == '%')
 		return (ft_putchar('%'));
-	// ERROR
 	return (-1);
 }

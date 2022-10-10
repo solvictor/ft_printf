@@ -12,10 +12,11 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
 # include <stdlib.h>
 # include <stdarg.h>
 
-typedef struct	s_flag
+typedef struct s_flag
 {
 	char	type;
 	int		value;
@@ -25,9 +26,9 @@ int	ft_printf(const char *format, ...);
 int	handle_conv(const char *s, int *i, va_list args, t_flag **flag);
 int	ft_putchar(char c);
 int	ft_putstr(char *str);
-int	ft_putptr(void *ptr);
-int	ft_putnbr(int n, t_flag *flag);
-int	ft_putui(unsigned int n, t_flag *flag);
-int	ft_putul_hex(unsigned long n, int upper, t_flag *flag);
+int	putptr(void *ptr);
+int	putint(int n, t_flag *flag);
+int	putui(unsigned int n, t_flag *flag);
+int	putul_hex(unsigned long n, int upper, t_flag *flag);
 
 #endif

@@ -27,23 +27,24 @@ static int	intlen(int n)
 	return (len);
 }
 
-int	ft_putnbr_aux(int n, t_flag *flag)
+// TODO Fix flag 0 && min int
+static int	putint_aux(int n, t_flag *flag)
 {
 	if (flag && flag->type == '0' && flag->value)
 	{
 		flag->value--;
-		return (ft_putchar('0') + ft_putnbr_aux(n, flag));
+		return (ft_putchar('0') + putint_aux(n, flag));
 	}
 	if (n == -2147483648)
 		return (ft_putstr("-2147483648"));
 	if (n < 0)
-		return (ft_putchar('-') + ft_putnbr_aux(-n, flag));
+		return (ft_putchar('-') + putint_aux(-n, flag));
 	if (n < 10)
 		return (ft_putchar(n + '0'));
-	return (ft_putnbr_aux(n / 10, flag) + ft_putnbr_aux(n % 10, flag));
+	return (putint_aux(n / 10, flag) + putint_aux(n % 10, flag));
 }
 
-int	ft_putnbr(int n, t_flag *flag)
+int	putint(int n, t_flag *flag)
 {
 	if (flag)
 	{
@@ -52,6 +53,6 @@ int	ft_putnbr(int n, t_flag *flag)
 			flag->value = 0;
 	}
 	if (n < 0 && n != -2147483648)
-		return (ft_putchar('-') + ft_putnbr_aux(-n, flag));
-	return (ft_putnbr_aux(n, flag));
+		return (ft_putchar('-') + putint_aux(-n, flag));
+	return (putint_aux(n, flag));
 }

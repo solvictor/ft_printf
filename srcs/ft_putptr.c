@@ -13,9 +13,9 @@
 #include <unistd.h>
 #include "ft_printf.h"
 
-int	ft_putptr(void *ptr)
+int	putptr(void *ptr)
 {
 	if (!ptr)
 		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_putul_hex((unsigned long) ptr, 0, NULL));
+	return (write(1, "0x", 2) + putul_hex((unsigned long) ptr, 0, NULL));
 }

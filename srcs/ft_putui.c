@@ -25,19 +25,19 @@ static int	uintlen(unsigned int n)
 	return (len);
 }
 
-int	ft_putui_aux(unsigned int n, t_flag *flag)
+static int	putui_aux(unsigned int n, t_flag *flag)
 {
 	if (flag && flag->type == '0' && flag->value)
 	{
 		flag->value--;
-		return (ft_putchar('0') + ft_putui_aux(n, flag));
+		return (ft_putchar('0') + putui_aux(n, flag));
 	}
 	if (n < 10)
 		return (ft_putchar(n + '0'));
-	return (ft_putui_aux(n / 10, flag) + ft_putui_aux(n % 10, flag));
+	return (putui_aux(n / 10, flag) + putui_aux(n % 10, flag));
 }
 
-int	ft_putui(unsigned int n, t_flag *flag)
+int	putui(unsigned int n, t_flag *flag)
 {
 	if (flag)
 	{
@@ -46,6 +46,6 @@ int	ft_putui(unsigned int n, t_flag *flag)
 			flag->value = 0;
 	}
 	if (n < 10)
-		return (ft_putui_aux(n, flag));
-	return (ft_putui_aux(n / 10, flag) + ft_putui_aux(n % 10, flag));
+		return (putui_aux(n, flag));
+	return (putui_aux(n / 10, flag) + putui_aux(n % 10, flag));
 }

@@ -27,23 +27,23 @@ static int	hexlen(unsigned long n)
 	return (len);
 }
 
-int	ft_putul_hex_aux(unsigned long n, int upper, t_flag *flag)
+static int	putul_hex_aux(unsigned long n, int u, t_flag *flag)
 {
 	if (flag && flag->type == '0' && flag->value)
 	{
 		flag->value--;
-		return (ft_putchar('0') + ft_putul_hex_aux(n, upper, flag));
+		return (ft_putchar('0') + putul_hex_aux(n, u, flag));
 	}
 	if (n < 16)
 	{
-		if (upper)
+		if (u)
 			return (ft_putchar(UPPERHEXVALS[n]));
 		return (ft_putchar(HEXVALS[n]));
 	}
-	return (ft_putul_hex_aux(n / 16, upper, flag) + ft_putul_hex_aux(n % 16, upper, flag));
+	return (putul_hex_aux(n / 16, u, flag) + putul_hex_aux(n % 16, u, flag));
 }
 
-int	ft_putul_hex(unsigned long n, int upper, t_flag *flag)
+int	putul_hex(unsigned long n, int u, t_flag *flag)
 {
 	if (flag)
 	{
@@ -52,6 +52,6 @@ int	ft_putul_hex(unsigned long n, int upper, t_flag *flag)
 			flag->value = 0;
 	}
 	if (n < 16)
-		return (ft_putul_hex_aux(n, upper, flag));
-	return (ft_putul_hex_aux(n / 16, upper, flag) + ft_putul_hex_aux(n % 16, upper, flag));
+		return (putul_hex_aux(n, u, flag));
+	return (putul_hex_aux(n / 16, u, flag) + putul_hex_aux(n % 16, u, flag));
 }
