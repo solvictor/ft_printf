@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/10/10 19:34:54 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/09 19:29:59 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,9 @@ int	ft_printf(const char *format, ...)
 	free(flag);
 	return (count);
 }
+
+/*int main()
+{
+	ft_printf("%d\n", -2147483648);
+	return 0;
+}*/

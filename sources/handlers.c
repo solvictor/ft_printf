@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/10/10 19:35:23 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/09 21:26:18 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,50 @@ static int	ft_atoi(const char *s, int *i)
 	return (r);
 }
 
-static int	handle_flags(const char **s, t_flag **flag)
+static int	strindex(char *str, char c)
 {
 	int	i;
 
-	*flag = NULL;
-	if (**s != '-' && **s != '0')
-		return (0);
+	if (!str)
+		return (-1);
 	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static int	ft_pow(int n, int k)
+{
+	if (k == 0)
+		return (1);
+	if (k == 1)
+		return (n);
+	return (n * ft_pow(n, k - 1));
+}
+
+static int	handle_flags(const char **s, t_flag **flag)
+{
+	int	skipped;
+	int	index;
+
+	*flag = NULL;
+	index = strindex(FLAGS, **s);
+	if (index == -1)
+		return (0);
+	skipped = 0;
 	*flag = malloc(sizeof(t_flag));
-	(*flag)->type = **s;
-	(*flag)->value = ft_atoi(*s + 1, &i);
-	*s += i + 1;
-	return (i + 1);
+	if (!*flag)
+		return (0); // Pas sur a verif
+	(*flag)->flags = ft_pow(2, index);
+	if (**s == ' ' && **s == '+')
+		(*flag)->flags &= 0b11111011;
+	(*flag)->value = ft_atoi(*s + 1, &skipped);
+	*s += skipped + 1;
+	return (skipped + 1);
 }
 
 int	handle_conv(const char *s, int *i, va_list args, t_flag **flag)

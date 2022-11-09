@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:18:28 by vegret            #+#    #+#             */
-/*   Updated: 2022/10/10 19:35:21 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/09 17:53:28 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ static int	hexlen(unsigned long n)
 
 static int	putul_hex_aux(unsigned long n, int u, t_flag *flag)
 {
-	if (flag && flag->type == '0' && flag->value)
+	if (flag)
 	{
-		flag->value--;
-		return (ft_putchar('0') + putul_hex_aux(n, u, flag));
+		if (flag->flags & 0b1 && flag->value)
+		{
+			flag->value--;
+			return (ft_putchar('0') + putul_hex_aux(n, u, flag));
+		}
 	}
 	if (n < 16)
 	{
@@ -50,6 +53,13 @@ int	putul_hex(unsigned long n, int u, t_flag *flag)
 		flag->value -= hexlen(n);
 		if (flag->value < 0)
 			flag->value = 0;
+		if (n && flag->flags & 0b10)
+		{
+			flag->flags &= 0b11111101;
+			if (u)
+				return (ft_putstr("0X") + putul_hex(n, u, flag));
+			return (ft_putstr("0x") + putul_hex(n, u, flag));
+		}
 	}
 	if (n < 16)
 		return (putul_hex_aux(n, u, flag));
