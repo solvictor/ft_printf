@@ -1,14 +1,12 @@
 NAME = libftprintf.a
-SRCDIR = srcs/
+SRCDIR = sources/
 INCLUDESDIR = includes/
 CC = gcc
 AR = ar rc
 SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c \
 		$(SRCDIR)ft_putptr.c $(SRCDIR)ft_putui.c $(SRCDIR)ft_putul_hex.c \
 		$(SRCDIR)handlers.c
-SRCS_B = 
 OBJS = $(SRCS:.c=.o)
-OBJS_B = $(SRCS_B:.c=.o)
 
 .c.o: 
 	$(CC) -Wall -Wextra -Werror -c $< -o $(<:.c=.o) -I $(INCLUDESDIR)
