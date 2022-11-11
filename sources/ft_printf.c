@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 18:05:32 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/11 23:35:36 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-int	main(void)
-{
-	//int	r;
+//int	main(void)
+//{
+//	char format[] = "[% +d]\n";
+//	ft_printf(format, 1);
+//	printf(format, 1);
 
-	//write(1, "[", 1);
-	/*r = */ft_printf("[%10d]", 1518941);
-	//write(1, "\n",1);
-	//putint(r, NULL);
-	return (0);
-}
+//	return (0);
+//}

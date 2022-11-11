@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:00:48 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 16:34:18 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/11 23:34:37 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	ft_putchar(char c)
 	int	printed;
 
 	printed = 0;
-	/*if (flag && (flag->flags & 0b10000) && flag->value)
-		(flag->value)--;*/
 	printed += write(1, &c, 1);
-	return (printed /*+ putspaces(flag, 0)*/);
+	return (printed);
 }
 
 int	ft_putstr(char *str, int i)
