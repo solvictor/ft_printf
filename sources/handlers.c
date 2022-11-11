@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 18:26:03 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/11 18:37:20 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	handle_flags(const char **s, t_flag flag)
 
 	flag.flags = 0;
 	flag.minimal_width = 0;
+	flag.precision = 0;
 	if (strindex(CONVS, **s) != -1)
 		return (0);
 	index = strindex(FLAGS, **s);
@@ -72,6 +73,11 @@ static int	handle_flags(const char **s, t_flag flag)
 	if (flag.flags & 0b10000 && flag.flags & 0b1000)
 		flag.flags &= 0b11110111;
 	flag.minimal_width = ft_atoi(*s, &skipped);
+	if ((*s)[skipped] == '.')
+	{
+		skipped++;
+		flag.precision = ft_atoi(*s, &skipped);
+	}
 	*s += skipped;
 	return (skipped);
 }
