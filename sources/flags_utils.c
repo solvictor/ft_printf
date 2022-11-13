@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:56:13 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 23:07:30 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:12:30 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	fill_width(t_flag *flag, int already_printed)
 
 int	make_compatibility(int flags)
 {
-	if (flags & SPACE && flags & PLUS)
+	if (flags & (SPACE | PLUS))
 		flags &= ~SPACE;
-	if (flags & ZERO && flags & MINUS)
+	if (flags & (ZERO | MINUS))
 		flags &= ~ZERO;
-	if (flags & ZERO && flags & DOT)
+	if (flags & (ZERO | DOT))
 		flags &= ~ZERO;
 	return (flags);
 }
