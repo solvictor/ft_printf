@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 15:53:36 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 18:27:04 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	ft_printf(const char *format, ...)
 
 //int	main(void)
 //{
-//	char format[] = "s% +d %-6d %25d test mdr";
-//	ft_printf(format, 1, 9999999, 1);
+//	char format[] = "%x test mdr";
+//	ft_printf(format, -54);
 //	//printf(format, 1);
 //	return (0);
 //}

@@ -5,7 +5,7 @@ CC = gcc
 AR = ar rc
 SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c \
 		$(SRCDIR)ft_putptr.c $(SRCDIR)ft_putui.c $(SRCDIR)ft_putul_hex.c \
-		$(SRCDIR)handlers.c
+		$(SRCDIR)handlers.c $(SRCDIR)flags_utils.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o: 

@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:18:28 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 16:26:53 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 19:50:24 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define HEXVALS "0123456789abcdef"
 #define UPPERHEXVALS "0123456789ABCDEF"
 
-/*static int	hexlen(unsigned long n)
+static int	hexlen(unsigned long n)
 {
 	int	len;
 
@@ -25,15 +25,15 @@
 		len++;
 	}
 	return (len);
-}*/
+}
 
 static int	putul_hex_aux(unsigned long n, int u)
 {
 	if (n < 16)
 	{
 		if (u)
-			return (ft_putchar(UPPERHEXVALS[n]));
-		return (ft_putchar(HEXVALS[n]));
+			return (write(1, &UPPERHEXVALS[n], 1));
+		return (write(1, &HEXVALS[n], 1));
 	}
 	return (putul_hex_aux(n / 16, u) + putul_hex_aux(n % 16, u));
 }
@@ -43,13 +43,14 @@ int	putul_hex(unsigned long n, int u, t_flag *flag)
 	int	printed;
 
 	printed = 0;
-	if (flag && n > 0 && flag->flags & SHARP)
+	if (flag && flag->flags & SHARP && n > 0)
 	{
 		if (u)
 			printed += write(1, "0X", 2);
 		else
 			printed += write(1, "0x", 2);
 	}
+	printed += putzeros(flag, hexlen(n) + printed);
 	if (n < 16)
 		printed += putul_hex_aux(n, u);
 	else
