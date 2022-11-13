@@ -6,23 +6,35 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:56:13 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:23:19 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:07:30 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	putzeros(t_flag *flag, int already_printed)
+int	putzeros(t_flag *flag, int elen, int already_printed)
 {
 	int	printed;
 
 	printed = 0;
-	if (flag && flag->flags & ZERO)
+	if (flag)
 	{
-		while (already_printed < flag->minimal_width)
+		if (flag->flags & ZERO)
 		{
-			printed += write(1, "0", 1);
-			already_printed++;
+			elen += already_printed;
+			while (elen < flag->minimal_width)
+			{
+				printed += write(1, "0", 1);
+				elen++;
+			}
+		}
+		if (flag->flags & DOT)
+		{
+			while (elen < flag->precision)
+			{
+				printed += write(1, "0", 1);
+				elen++;
+			}
 		}
 	}
 	return (printed);

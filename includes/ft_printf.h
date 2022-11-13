@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 01:08:12 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:23:26 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:59:19 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	putint(int n, t_flag *flag);
 int	putui(unsigned int n, t_flag *flag);
 int	putul_hex(unsigned long n, int upper, t_flag *flag);
 int	fill_width(t_flag *flag, int already_printed);
-int	putzeros(t_flag *flag, int already_printed);
+int	putzeros(t_flag *flag, int elen, int already_printed);
 int	make_compatibility(int flags);
 
 #endif

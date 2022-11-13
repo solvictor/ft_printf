@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:18:28 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 19:50:24 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:59:27 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	putul_hex(unsigned long n, int u, t_flag *flag)
 		else
 			printed += write(1, "0x", 2);
 	}
-	printed += putzeros(flag, hexlen(n) + printed);
+	printed += putzeros(flag, hexlen(n), printed);
 	if (n < 16)
 		printed += putul_hex_aux(n, u);
 	else

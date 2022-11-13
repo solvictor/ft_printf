@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:17:44 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 18:58:49 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 23:00:12 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	putui(unsigned int n, t_flag *flag)
 {
 	int	printed;
 
-	printed = putzeros(flag, uintlen(n));
+	printed = putzeros(flag, uintlen(n), 0);
 	if (n < 10)
 		printed += putui_aux(n);
 	else

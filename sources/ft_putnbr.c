@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 20:30:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 21:31:56 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:59:41 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int	intlen(int n)
 	int	len;
 
 	len = 1;
-	if (n < 0)
-		len++;
 	while (n > 9 || n < -9)
 	{
 		n /= 10;
@@ -42,14 +40,17 @@ int	putint(int n, t_flag *flag)
 
 	printed = 0;
 	if (n < 0)
-		printed = write(1, "-", 1) + putzeros(flag, intlen(n)) + putint_aux(-n);
+	{
+		printed += write(1, "-", 1);
+		printed += putzeros(flag, intlen(n), printed) + putint_aux(-n);
+	}
 	else
 	{
 		if (flag->flags & SPACE)
 			printed += write(1, " ", 1);
 		if (flag->flags & PLUS)
 			printed += write(1, "+", 1);
-		printed += putzeros(flag, printed + intlen(n)) + putint_aux(n);
+		printed += putzeros(flag, intlen(n), printed) + putint_aux(n);
 	}
 	return (printed);
 }
