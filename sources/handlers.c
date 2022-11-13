@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:23:16 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:28:47 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	handle_conv(const char *s, va_list args, t_flag *flag)
 	else if (*s == 's')
 		printed += ft_putstr(va_arg(args, char *), 0, flag);
 	else if (*s == 'p')
-		printed += putptr(va_arg(args, void *));
+		printed += putptr(va_arg(args, void *), flag);
 	else if (*s == 'd' || *s == 'i')
 		printed += putint(va_arg(args, int), flag);
 	else if (*s == 'u')

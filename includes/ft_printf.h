@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 01:08:12 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:59:19 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:28:30 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_conv(const char *s, va_list args, t_flag *flag);
 int	handle_flags(const char *s, t_flag *flag);
 int	ft_putchar(char c);
 int	ft_putstr(char *str, int i, t_flag *flag);
-int	putptr(void *ptr);
+int	putptr(void *ptr, t_flag *flag);
 int	putint(int n, t_flag *flag);
 int	putui(unsigned int n, t_flag *flag);
 int	putul_hex(unsigned long n, int upper, t_flag *flag);
