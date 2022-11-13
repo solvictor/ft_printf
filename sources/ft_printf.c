@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 23:35:36 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 15:53:36 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_printf(const char *format, ...)
 {
 	int		i;
 	int		count;
-	va_list	args;
 	t_flag	flag;
+	va_list	args;
 
 	i = 0;
 	count = 0;
@@ -27,7 +27,8 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1])
 		{
 			i++;
-			count += handle_conv(format + i, &i, args, flag);
+			i += handle_flags(format + i, &flag);
+			count += handle_conv(format + i, args, &flag);
 		}
 		else
 			count += write(1, &format[i], 1);
@@ -39,9 +40,8 @@ int	ft_printf(const char *format, ...)
 
 //int	main(void)
 //{
-//	char format[] = "[% +d]\n";
-//	ft_printf(format, 1);
-//	printf(format, 1);
-
+//	char format[] = "s% +d %-6d %25d test mdr";
+//	ft_printf(format, 1, 9999999, 1);
+//	//printf(format, 1);
 //	return (0);
 //}

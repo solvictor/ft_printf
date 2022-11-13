@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 23:35:02 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 16:20:28 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_pow(int n, int k)
 	return (n * ft_pow(n, k - 1));
 }
 
-static int	handle_flags(const char **s, t_flag *flag)
+int	handle_flags(const char *s, t_flag *flag)
 {
 	int	skipped;
 	int	index;
@@ -60,32 +60,47 @@ static int	handle_flags(const char **s, t_flag *flag)
 	flag->flags = 0;
 	flag->minimal_width = 0;
 	flag->precision = 0;
-	if (strindex(CONVS, **s) != -1)
+	if (strindex(CONVS, *s) != -1)
 		return (0);
-	index = strindex(FLAGS, **s);
+	index = strindex(FLAGS, *s);
 	skipped = 0;
-	while (index != -1 && (*s)[skipped])
+	while (index != -1 && s[skipped])
 	{
 		flag->flags |= ft_pow(2, index);
-		index = strindex(FLAGS, (*s)[++skipped]);
+		index = strindex(FLAGS, s[++skipped]);
 	}
 	if (flag->flags & SPACE && flag->flags & PLUS)
 		flag->flags &= ~SPACE;
-	flag->minimal_width = ft_atoi(*s, &skipped);
-	if ((*s)[skipped] == '.')
+	flag->minimal_width = ft_atoi(s, &skipped);
+	if (s[skipped] == '.')
 	{
 		skipped++;
-		flag->precision = ft_atoi(*s, &skipped);
+		flag->precision = ft_atoi(s, &skipped);
 	}
-	*s += skipped;
 	return (skipped);
 }
 
-int	handle_conv(const char *s, int *i, va_list args, t_flag flag)
+static int	fill_width(t_flag *flag, int already_printed)
 {
 	int	printed;
 
-	*i += handle_flags(&s, &flag);
+	printed = 0;
+	if (flag->flags & MINUS)
+	{
+		flag->minimal_width -= already_printed;
+		while (flag->minimal_width > 0)
+		{
+			printed += write(1, " ", 1);
+			flag->minimal_width--;
+		}
+	}
+	return (printed);
+}
+
+int	handle_conv(const char *s, va_list args, t_flag *flag)
+{
+	int	printed;
+
 	printed = 0;
 	if (*s == 'c')
 		printed += ft_putchar(va_arg(args, int));
@@ -94,12 +109,12 @@ int	handle_conv(const char *s, int *i, va_list args, t_flag flag)
 	else if (*s == 'p')
 		printed += putptr(va_arg(args, void *));
 	else if (*s == 'd' || *s == 'i')
-		printed += putint(va_arg(args, int), &flag);
+		printed += putint(va_arg(args, int), flag);
 	else if (*s == 'u')
 		printed += putui(va_arg(args, unsigned int));
 	else if (*s == 'x' || *s == 'X')
-		printed += putul_hex(va_arg(args, unsigned int), *s == 'X');
+		printed += putul_hex(va_arg(args, unsigned int), *s == 'X', flag);
 	else if (*s == '%')
 		printed += write(1, "%", 1);
-	return (printed);
+	return (printed + fill_width(flag, printed));
 }

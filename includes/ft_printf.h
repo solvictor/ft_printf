@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 01:08:12 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 23:14:47 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 16:16:51 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ typedef struct s_flag
 }				t_flag;
 
 int	ft_printf(const char *format, ...);
-int	handle_conv(const char *s, int *i, va_list args, t_flag flag);
+int	handle_conv(const char *s, va_list args, t_flag *flag);
+int	handle_flags(const char *s, t_flag *flag);
 int	ft_putchar(char c);
 int	ft_putstr(char *str, int i);
 int	putptr(void *ptr);
 int	putint(int n, t_flag *flag);
 int	putui(unsigned int n);
-int	putul_hex(unsigned long n, int upper);
+int	putul_hex(unsigned long n, int upper, t_flag *flag);
 int	putspaces(t_flag *flag, int pos);
 
 #endif

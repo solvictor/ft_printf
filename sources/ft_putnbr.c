@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 20:30:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/11 23:36:20 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/13 16:14:44 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ int	putint(int n, t_flag *flag)
 {
 	int	printed;
 
-	(void) flag;
 	printed = 0;
 	if (n < 0)
 		printed += write(1, "-", 1) + putint_aux(-n);
 	else
+	{
+		if (flag->flags & SPACE)
+			printed += write(1, " ", 1);
+		if (flag->flags & PLUS)
+			printed += write(1, "+", 1);
 		printed += putint_aux(n);
+	}
 	return (printed);
 }
