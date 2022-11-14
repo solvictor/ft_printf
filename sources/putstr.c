@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   putstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:00:48 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 14:08:19 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/14 23:53:40 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	putstr(char *str, t_flag *flag)
 
 	printed = fill_before(flag, nstrlen(str, flag));
 	if (!str)
-		printed += (write(1, "(null)", 6));
+	{
+		if (!(flag && flag->flags & DOT && flag->precision < 6))
+			printed += (write(1, "(null)", 6));
+	}	
 	else
 	{
 		i = 0;

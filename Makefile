@@ -1,55 +1,72 @@
+# Variables
+
 NAME		= libftprintf.a
-DIRSRCS 	= sources/
-SRCS 		=	$(addsuffix .c,	\
-				$(addprefix ${DIRSRCS},	\
-				ft_printf				\
-				flags_utils				\
-				handlers				\
-				putui					\
-				putnbr					\
-				putptr					\
-				putstr					\
-				putul_hex				\
-				))
-LIBDIR		= libft
-LIBNAME		= ft
-INCLUDES	= ./includes
-RM			= rm -rf
-OBJS		= ${SRCS:.c=.o}
+INCLUDE		= includes
+LIBFT		= libft
+SRC_DIR		= sources/
+OBJ_DIR		= objects/
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Werror -Wextra
+RM			= rm -f
+AR			= ar rcs
 
-.%.o: %.c
-	@${CC} ${FLAGS} -o $@ -c $^ -L${LIBDIR} -l${LIBNAME} -I${INCLUDES}
+# Colors
 
-.${LIBDIR}/libft.a:
-	@make -C ${LIBDIR}
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
 
-all: ${NAME}
-	@clear
+# Sources
 
-${NAME}:	${OBJS} ${LIBDIR}/libft.a
-	@cp ${LIBDIR}/libft.a ${NAME}
-	@ar rcs ${NAME} ${OBJS}
+SRC_FILES	=	ft_printf flags_utils handlers putui putnbr putptr putstr putul_hex
+
+
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+###
+
+OBJF		=	.cache_exists
+
+all:		$(NAME)
+
+$(NAME):	$(OBJ)
+			@make -C $(LIBFT)
+			@cp libft/libft.a .
+			@mv libft.a $(NAME)
+			@$(AR) $(NAME) $(OBJ)
+			@echo "$(GREEN)ft_printf compiled!$(DEF_COLOR)"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 clean:
-	@${RM} ${OBJS}
+			@$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(LIBFT)
+			@echo "$(BLUE)ft_printf object files cleaned!$(DEF_COLOR)"
+
+bonus:		all
 
 fclean:		clean
-	@${RM} ${NAME}
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIBFT)/libft.a
+			@echo "$(CYAN)ft_printf executable files cleaned!$(DEF_COLOR)"
+			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
-lib_re:
-	@make -C ${LIBDIR} re
+re:			fclean all
+			@echo "$(GREEN)Cleaned and rebuilt everything for ft_printf!$(DEF_COLOR)"
 
-lib_clean:
-	@make -C ${LIBDIR} clean
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
 
-lib_fclean:
-	@make -C ${LIBDIR} fclean
-
-lib_all:
-	@make -C ${LIBDIR} all
-
-re: lib_re fclean all
-
-.PHONY: all clean fclean re lib_re lib_all lib_fclean lib_clean lib_re
+.PHONY:		all clean fclean re norm

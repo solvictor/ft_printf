@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   putptr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 21:44:33 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:34:57 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/15 00:00:26 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	putptr(void *ptr, t_flag *flag)
 	if (!(flag && flag->flags & ZERO))
 		printed = fill_before(flag, ptrlen(ptr, flag));
 	if (!ptr)
-		return (write(1, "(nil)", 5));
-	printed += write(1, "0x", 2) + putul_hex((unsigned long) ptr, 0, flag);
+		printed += write(1, "(nil)", 5);
+	else
+		printed += write(1, "0x", 2) + putul_hex((unsigned long) ptr, 0, NULL);
 	return (printed);
 }
