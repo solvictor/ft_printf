@@ -1,32 +1,55 @@
-NAME = libftprintf.a
-SRCDIR = sources/
-LIBFTDIR = libft/
-INCLUDESDIR = includes/
-CC = gcc
-AR = ar rc
-SRCS = $(SRCDIR)ft_printf.c $(SRCDIR)ft_putstr.c $(SRCDIR)ft_putnbr.c \
-		$(SRCDIR)ft_putptr.c $(SRCDIR)ft_putui.c $(SRCDIR)ft_putul_hex.c \
-		$(SRCDIR)handlers.c $(SRCDIR)flags_utils.c
-OBJS = $(SRCS:.c=.o)
+NAME		= libftprintf.a
+DIRSRCS 	= sources/
+SRCS 		=	$(addsuffix .c,	\
+				$(addprefix ${DIRSRCS},	\
+				ft_printf				\
+				flags_utils				\
+				handlers				\
+				putui					\
+				putnbr					\
+				putptr					\
+				putstr					\
+				putul_hex				\
+				))
+LIBDIR		= libft
+LIBNAME		= ft
+INCLUDES	= ./includes
+RM			= rm -rf
+OBJS		= ${SRCS:.c=.o}
+CC			= cc
+FLAGS		= -Wall -Wextra -Werror
 
-.c.o: 
-	$(CC) -Wall -Wextra -Werror -c $< -o $(<:.c=.o) -I $(INCLUDESDIR)
+.%.o: %.c
+	@${CC} ${FLAGS} -o $@ -c $^ -L${LIBDIR} -l${LIBNAME} -I${INCLUDES}
 
-all: 		$(NAME)
+.${LIBDIR}/libft.a:
+	@make -C ${LIBDIR}
 
-$(NAME): 	$(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	ranlib $(NAME)
+all: ${NAME}
+	@clear
 
-$(LIB):
-	$(MAKE) -sC $(LIBFTDIR)
+${NAME}:	${OBJS} ${LIBDIR}/libft.a
+	@cp ${LIBDIR}/libft.a ${NAME}
+	@ar rcs ${NAME} ${OBJS}
 
-bonus: all
+clean:
+	@${RM} ${OBJS}
 
-clean: 
-	rm -f $(OBJS)
+fclean:		clean
+	@${RM} ${NAME}
 
-fclean: 	clean
-	rm -f $(NAME)
+lib_re:
+	@make -C ${LIBDIR} re
 
-re:			fclean all
+lib_clean:
+	@make -C ${LIBDIR} clean
+
+lib_fclean:
+	@make -C ${LIBDIR} fclean
+
+lib_all:
+	@make -C ${LIBDIR} all
+
+re: lib_re fclean all
+
+.PHONY: all clean fclean re lib_re lib_all lib_fclean lib_clean lib_re
