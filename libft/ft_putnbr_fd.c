@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/11/08 19:44:38 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 19:45:12 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
-
-	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
-		i++;
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
 	}
-	va_end(args);
-	return (count);
+	else if (n < 10)
+		ft_putchar_fd(n + '0', fd);
+	else
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
 }

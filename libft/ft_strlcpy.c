@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/09/02 00:57:13 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 18:08:45 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
+	size_t	src_length;
+	size_t	i;
 
+	src_length = ft_strlen(src);
+	if (size == 0)
+		return (src_length);
 	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	while (i < src_length && --size)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
+		dst[i] = src[i];
 		i++;
 	}
-	va_end(args);
-	return (count);
+	dst[i] = '\0';
+	return (src_length);
 }

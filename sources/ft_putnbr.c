@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 20:30:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:59:41 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/14 17:49:34 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,21 @@ static int	intlen(int n)
 static int	putint_aux(int n)
 {
 	if (n == -2147483648)
-		return (ft_putstr("2147483648", 0, NULL));
+		return (putstr("2147483648", NULL));
 	if (n < 10)
-		return (ft_putchar(n + '0'));
+		return (putchar_c(n + '0', NULL));
 	return (putint_aux(n / 10) + putint_aux(n % 10));
+}
+
+static int	printinglen(int n, t_flag *flag)
+{
+	int	len;
+
+	len = intlen(n);
+	if (flag && flag->flags & DOT && flag->precision > len)
+		len = flag->precision;
+	len += (n < 0 || flag->flags & SPACE || flag->flags & PLUS);
+	return (len);
 }
 
 int	putint(int n, t_flag *flag)
@@ -39,6 +50,8 @@ int	putint(int n, t_flag *flag)
 	int	printed;
 
 	printed = 0;
+	if (!(flag && flag->flags & ZERO))
+		printed = fill_before(flag, printinglen(n, flag));
 	if (n < 0)
 	{
 		printed += write(1, "-", 1);

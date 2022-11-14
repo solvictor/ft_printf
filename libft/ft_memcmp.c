@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/09/01 16:42:34 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 13:18:33 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <string.h>
 
-int	ft_printf(const char *format, ...)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
-
-	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	if (!n)
+		return (0);
+	while (*((unsigned char *) s1) == *((unsigned char *) s2) && --n)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
-		i++;
+		s1++;
+		s2++;
 	}
-	va_end(args);
-	return (count);
+	return (*((unsigned char *) s1) - *((unsigned char *) s2));
 }

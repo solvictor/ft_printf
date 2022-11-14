@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/11/08 18:09:33 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 18:10:15 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_strrchr(const char *s, int c)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
+	int	i;
 
-	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	i = ft_strlen(s);
+	while (i >= 0)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
-		i++;
+		if (s[i] == (unsigned char) c)
+			return ((char *) &s[i]);
+		i--;
 	}
-	va_end(args);
-	return (count);
+	return (NULL);
 }

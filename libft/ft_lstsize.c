@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/09/05 21:13:40 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 13:19:56 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_lstsize(t_list *lst)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
+	int		size;
 
-	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	size = 0;
+	while (lst)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
-		i++;
+		size++;
+		lst = lst->next;
 	}
-	va_end(args);
-	return (count);
+	return (size);
 }

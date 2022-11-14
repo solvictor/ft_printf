@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:22 by vegret           ###   ########.fr       */
+/*   Created: 2022/09/02 00:03:35 by vegret            #+#    #+#             */
+/*   Updated: 2022/11/08 13:15:57 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <string.h>
 
-int	ft_printf(const char *format, ...)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
-	int		count;
-	t_flag	flag;
-	va_list	args;
+	size_t	i;
 
 	i = 0;
-	count = 0;
-	va_start(args, format);
-	while (format[i])
+	while (i < n)
 	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			i += handle_flags(format + i, &flag);
-			count += handle_conv(format + i, args, &flag);
-		}
-		else
-			count += write(1, &format[i], 1);
+		*(unsigned char *)(s + i) = (unsigned char) c;
 		i++;
 	}
-	va_end(args);
-	return (count);
+	return (s);
 }

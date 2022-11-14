@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:18:28 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/13 22:59:27 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/14 16:31:24 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define HEXVALS "0123456789abcdef"
 #define UPPERHEXVALS "0123456789ABCDEF"
 
-static int	hexlen(unsigned long n)
+int	hexlen(unsigned long n)
 {
 	int	len;
 
@@ -41,8 +41,17 @@ static int	putul_hex_aux(unsigned long n, int u)
 int	putul_hex(unsigned long n, int u, t_flag *flag)
 {
 	int	printed;
+	int	nextlen;
 
 	printed = 0;
+	if (!(flag && flag->flags & ZERO))
+	{
+		nextlen = hexlen(n);
+		if (flag && flag->flags & DOT && flag->precision > nextlen)
+			nextlen = flag->precision;
+		nextlen += 2 * (flag && flag->flags & SHARP && n > 0);
+		printed = fill_before(flag, nextlen);
+	}
 	if (flag && flag->flags & SHARP && n > 0)
 	{
 		if (u)
