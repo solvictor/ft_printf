@@ -1,5 +1,6 @@
 NAME = libftprintf.a
 SRCDIR = sources/
+LIBFTDIR = libft/
 INCLUDESDIR = includes/
 CC = gcc
 AR = ar rc
@@ -17,9 +18,10 @@ $(NAME): 	$(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-bonus: $(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	ranlib $(NAME)
+$(LIB):
+	$(MAKE) -sC $(LIBFTDIR)
+
+bonus: all
 
 clean: 
 	rm -f $(OBJS)
