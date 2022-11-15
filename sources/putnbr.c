@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   putnbr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 20:30:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 17:49:34 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/15 10:44:03 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	printinglen(int n, t_flag *flag)
 	len = intlen(n);
 	if (flag && flag->flags & DOT && flag->precision > len)
 		len = flag->precision;
+	if (n == 0 && flag && flag->flags & DOT && flag->precision == 0)
+		len = 0;
 	len += (n < 0 || flag->flags & SPACE || flag->flags & PLUS);
 	return (len);
 }
@@ -63,7 +65,8 @@ int	putint(int n, t_flag *flag)
 			printed += write(1, " ", 1);
 		if (flag->flags & PLUS)
 			printed += write(1, "+", 1);
-		printed += putzeros(flag, intlen(n), printed) + putint_aux(n);
+		if (!(n == 0 && flag && flag->flags & DOT && flag->precision == 0))
+			printed += putzeros(flag, intlen(n), printed) + putint_aux(n);
 	}
 	return (printed);
 }

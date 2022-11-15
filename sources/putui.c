@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putui.c                                         :+:      :+:    :+:   */
+/*   putui.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:17:44 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 17:51:41 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/15 10:47:20 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	printinglen(unsigned int n, t_flag *flag)
 	len = uintlen(n);
 	if (flag && flag->flags & DOT && flag->precision > len)
 		len = flag->precision;
+	if (n == 0 && flag && flag->flags & DOT && flag->precision == 0)
+		len = 0;
 	return (len);
 }
 
@@ -50,6 +52,8 @@ int	putui(unsigned int n, t_flag *flag)
 	if (!(flag && flag->flags & ZERO))
 		printed = fill_before(flag, printinglen(n, flag));
 	printed += putzeros(flag, uintlen(n), 0);
+	if (n == 0 && flag && flag->flags & DOT && flag->precision == 0)
+		return (printed);
 	if (n < 10)
 		printed += putui_aux(n);
 	else

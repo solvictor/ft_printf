@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putul_hex.c                                     :+:      :+:    :+:   */
+/*   putul_hex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:18:28 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:31:24 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/15 10:53:07 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,26 @@ static int	putul_hex_aux(unsigned long n, int u)
 	return (putul_hex_aux(n / 16, u) + putul_hex_aux(n % 16, u));
 }
 
+static int	printinglen(unsigned long n, t_flag *flag)
+{
+	int	len;
+
+	len = hexlen(n);
+	if (flag && flag->flags & DOT && flag->precision > len)
+		len = flag->precision;
+	if (n == 0 && flag && flag->flags & DOT && flag->precision == 0)
+		len = 0;
+	len += 2 * (flag && flag->flags & SHARP && n > 0);
+	return (len);
+}
+
 int	putul_hex(unsigned long n, int u, t_flag *flag)
 {
 	int	printed;
-	int	nextlen;
 
 	printed = 0;
 	if (!(flag && flag->flags & ZERO))
-	{
-		nextlen = hexlen(n);
-		if (flag && flag->flags & DOT && flag->precision > nextlen)
-			nextlen = flag->precision;
-		nextlen += 2 * (flag && flag->flags & SHARP && n > 0);
-		printed = fill_before(flag, nextlen);
-	}
+		printed = fill_before(flag, printinglen(n, flag));
 	if (flag && flag->flags & SHARP && n > 0)
 	{
 		if (u)
@@ -60,6 +66,8 @@ int	putul_hex(unsigned long n, int u, t_flag *flag)
 			printed += write(1, "0x", 2);
 	}
 	printed += putzeros(flag, hexlen(n), printed);
+	if (n == 0 && flag && flag->flags & DOT && flag->precision == 0)
+		return (printed);
 	if (n < 16)
 		printed += putul_hex_aux(n, u);
 	else
