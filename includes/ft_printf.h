@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 01:08:12 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 13:54:43 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:09:38 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
 
 /* flags:
 1st bit = -
