@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:39 by vegret           ###   ########.fr       */
+/*   Updated: 2022/11/17 23:10:07 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	handle_flags(const char *s, t_flag *flag)
 	if (s[skipped] == '.')
 	{
 		skipped++;
-		flag->flags |= 32;
+		flag->flags |= DOT;
 		flag->precision = ft_atoi(s, &skipped);
 	}
 	flag->flags = make_compatibility(flag->flags);
