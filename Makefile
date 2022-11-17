@@ -36,9 +36,11 @@ OBJF		=	.cache_exists
 
 all:		$(NAME)
 
+bonus:		all
+
 $(NAME):	$(OBJ)
-			@make -C $(LIBFT)
-			@cp libft/libft.a .
+			@make bonus -C $(LIBFT)
+			@cp $(LIBFT)/libft.a .
 			@mv libft.a $(NAME)
 			@$(AR) $(NAME) $(OBJ)
 			@echo "$(GREEN)ft_printf compiled!$(DEF_COLOR)"
@@ -54,8 +56,6 @@ clean:
 			@$(RM) -rf $(OBJ_DIR)
 			@make clean -C $(LIBFT)
 			@echo "$(BLUE)ft_printf object files cleaned!$(DEF_COLOR)"
-
-bonus:		all
 
 fclean:		clean
 			@$(RM) -f $(NAME)
