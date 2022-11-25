@@ -1,41 +1,80 @@
-NAME = libft.a
-SRCDIR = ./
-INCLUDESDIR = ./
-CC = gcc
-AR = ar rc
-CFLAGS = -Wall -Wextra -Werror
-SRCS = $(SRCDIR)ft_atoi.c $(SRCDIR)ft_bzero.c $(SRCDIR)ft_calloc.c $(SRCDIR)ft_isalnum.c $(SRCDIR)ft_isalpha.c \
-		$(SRCDIR)ft_isascii.c $(SRCDIR)ft_isdigit.c $(SRCDIR)ft_isprint.c $(SRCDIR)ft_memchr.c $(SRCDIR)ft_memcmp.c \
-		$(SRCDIR)ft_memcpy.c $(SRCDIR)ft_memmove.c $(SRCDIR)ft_memset.c $(SRCDIR)ft_strchr.c $(SRCDIR)ft_strdup.c \
-		$(SRCDIR)ft_strlcpy.c $(SRCDIR)ft_strlen.c $(SRCDIR)ft_strncmp.c $(SRCDIR)ft_strnstr.c $(SRCDIR)ft_strtrim.c \
-		$(SRCDIR)ft_tolower.c $(SRCDIR)ft_toupper.c $(SRCDIR)ft_substr.c $(SRCDIR)ft_strjoin.c $(SRCDIR)ft_itoa.c \
-		$(SRCDIR)ft_split.c $(SRCDIR)ft_strmapi.c $(SRCDIR)ft_strlcat.c $(SRCDIR)ft_striteri.c $(SRCDIR)ft_putendl_fd.c \
-		$(SRCDIR)ft_putnbr_fd.c $(SRCDIR)ft_putstr_fd.c $(SRCDIR)ft_putchar_fd.c $(SRCDIR)ft_strrchr.c
+# Variables
 
-SRCS_B = $(SRCDIR)ft_lstnew.c $(SRCDIR)ft_lstadd_front.c $(SRCDIR)ft_lstsize.c $(SRCDIR)ft_lstlast.c \
-		$(SRCDIR)ft_lstadd_back.c $(SRCDIR)ft_lstdelone.c $(SRCDIR)ft_lstclear.c $(SRCDIR)ft_lstiter.c \
-		$(SRCDIR)ft_lstmap.c
-OBJS = $(SRCS:.c=.o)
-OBJS_B = $(SRCS_B:.c=.o)
+NAME		= libft.a
+INCLUDE		= .
+SRC_DIR		= ./
+OBJ_DIR		= objects/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra
+RM			= rm -f
+AR			= ar rcs
 
-.c.o: 
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDESDIR)
+# Colors
 
-all: 		$(NAME)
+DEF_COLOR 	=	\033[0;39m
+GRAY		=	\033[0;90m
+RED 		=	\033[0;91m
+GREEN		=	\033[0;92m
+YELLOW 		=	\033[0;93m
+BLUE		=	\033[0;94m
+MAGENTA		=	\033[0;95m
+CYAN		=	\033[0;96m
+WHITE		=	\033[0;97m
 
-$(NAME): 	$(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	ranlib $(NAME)
+# Sources
 
-bonus: $(OBJS) $(OBJS_B)
-	$(AR) $(NAME) $(OBJS) $(OBJS_B)
-	ranlib $(NAME)
+SRC_FILES	=	ft_atoi ft_bzero ft_calloc ft_isalnum ft_isalpha ft_isascii \
+				ft_isdigit ft_isprint ft_memchr ft_memcmp ft_memcpy ft_memmove \
+				ft_memset ft_strchr ft_strdup ft_strlcpy ft_strlen ft_strncmp \
+				ft_strnstr ft_strtrim ft_tolower ft_toupper ft_substr ft_strjoin \
+				ft_itoa ft_split ft_strmapi ft_strlcat ft_striteri ft_putendl_fd \
+				ft_putnbr_fd ft_putstr_fd ft_putchar_fd ft_strrchr \
+				get_next_line get_next_line_utils
 
-clean: 
-	rm -f $(OBJS)
-	rm -f $(OBJS_B)
+SRC_B_FILES	=	ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast ft_lstadd_back \
+				ft_lstdelone ft_lstclear ft_lstiter ft_lstmap
 
-fclean: 	clean
-	rm -f $(NAME)
+
+SRC			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+SRC_B		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_B_FILES)))
+OBJ			= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+OBJ_B		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_B_FILES)))
+
+###
+
+OBJF		=	.cache_exists
+
+all:		$(NAME)
+
+bonus:		$(OBJ) $(OBJ_B)
+			@$(AR) $(NAME) $(OBJ) $(OBJ_B)
+			@echo "$(GREEN)libft compiled with bonus!$(DEF_COLOR)"
+
+$(NAME):	$(OBJ)
+			@$(AR) $(NAME) $(OBJ)
+			@echo "$(GREEN)libft compiled!$(DEF_COLOR)"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "\033[1A                                                     "
+			@echo -n "\033[1A"
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
+
+clean:
+			@$(RM) -rf $(OBJ_DIR)
+			@echo "$(BLUE)libft object files cleaned!$(DEF_COLOR)"
+
+fclean:		clean
+			@$(RM) -f $(NAME)
+			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
 re:			fclean all
+			@echo "$(GREEN)Cleaned and rebuilt everything for libft!$(DEF_COLOR)"
+
+norm:
+			@norminette $(SRC) $(INCLUDE) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm
