@@ -9,6 +9,7 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 RM			= rm -f
 AR			= ar rcs
+SMAKE		= make --no-print-directory
 
 # Colors
 
@@ -39,7 +40,7 @@ all:		$(NAME)
 bonus:		all
 
 $(NAME):	$(OBJ)
-			@make bonus -C $(LIBFT)
+			@$(SMAKE) -C $(LIBFT) bonus
 			@cp $(LIBFT)/libft.a .
 			@mv libft.a $(NAME)
 			@$(AR) $(NAME) $(OBJ)
@@ -55,15 +56,13 @@ $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 
 clean:
-			@$(RM) -rf $(OBJ_DIR)
-			@make clean -C $(LIBFT)
+			@$(RM) -r $(OBJ_DIR)
 			@echo "$(BLUE)ft_printf object files cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-			@$(RM) -f $(NAME)
-			@$(RM) -f $(LIBFT)/libft.a
+			@$(RM) $(NAME)
+			@$(SMAKE) -C $(LIBFT) fclean
 			@echo "$(CYAN)ft_printf executable files cleaned!$(DEF_COLOR)"
-			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
 re:			fclean all
 			@echo "$(GREEN)Cleaned and rebuilt everything for ft_printf!$(DEF_COLOR)"
