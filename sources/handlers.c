@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:20:23 by vegret            #+#    #+#             */
-/*   Updated: 2022/11/17 23:10:07 by vegret           ###   ########.fr       */
+/*   Updated: 2022/12/21 16:47:49 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ int	handle_conv(const char *s, va_list args, t_flag *flag)
 	else if (*s == 'x' || *s == 'X')
 		printed += putul_hex(va_arg(args, unsigned int), *s == 'X', flag);
 	else if (*s == '%')
-		printed += write(1, "%", 1);
+		return (write(1, "%", 1));
 	return (printed + fill_after(flag, printed));
 }
