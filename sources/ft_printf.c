@@ -6,7 +6,7 @@
 /*   By: vegret <victor.egret.pro@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:14:40 by vegret            #+#    #+#             */
-/*   Updated: 2022/12/21 16:49:47 by vegret           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:37:01 by vegret           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_printf(const char *format, ...)
 	t_flag	flag;
 	va_list	args;
 
+	if (!format)
+		return (-1);
 	i = 0;
 	count = 0;
 	va_start(args, format);
